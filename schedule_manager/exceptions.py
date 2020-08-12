@@ -3,11 +3,11 @@ Exceptions.
 """
 
 class OperationFailError(Exception):
-    """Operation fail exception"""
+    """Operation fail exception."""
     pass
 
 class TaskNameDuplicateError(Exception):
-    """Duplicate task name exception"""
+    """Duplicate task name exception."""
     pass
 
 class TaskNotFoundError(Exception):

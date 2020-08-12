@@ -18,7 +18,6 @@ class ScheduleManager:
     """Task schedule manager."""
 
     def __init__(self):
-        """Constructor"""
         self._tasks = dict()
 
     def __del__(self):
@@ -48,12 +47,12 @@ class ScheduleManager:
 
     @property
     def all_tasks(self):
-        """TaskGroup: All tasks."""
+        """TaskGroup: Get all tasks."""
         return TaskGroup(list(self._tasks.values()))
 
     @property
     def running_tasks(self):
-        """TaskGroup: All running tasks."""
+        """TaskGroup: Get all running tasks."""
         task_list = list()
 
         for name in self._tasks:
@@ -64,7 +63,7 @@ class ScheduleManager:
 
     @property
     def pending_tasks(self):
-        """TaskGroup: All pending tasks."""
+        """TaskGroup: Get all pending tasks."""
         task_list = list()
 
         for name in self._tasks:
@@ -211,34 +210,31 @@ class Task(threading.Thread):
     :class:`Task` is able to registered in :class:`ScheduleManager` or run
     directly.
 
-    Attributes:
+    Args:
         job (callable): Job to be scheduled as a task.
         name (str): Task name.
+            By default, a unique name is constructed.
         args (tuple): Argument tuple for the job invocation.
-        kwargs (dict): Dictionary of keyword arguments for the job invocation.
-        ignore_skipped (bool): Set True to ignore skipped job if time spent on
-                 job is longer than the task cycle time.
+            Defaults to ().
+        kwargs (dict): Dictionary of keyword arguments for the job
+            invocation.
+            Defaults to {}.
+        ignore_skipped (bool): Set True to ignore skipped job if time
+            spent on job is longer than the task cycle time.
+            Defaults to True.
+        daemon (bool): Set True to use as a daemon task.
+            Defaults to True.
+
+    Attributes:
+        name (str): Task name.
+        daemon (bool): A boolean value indicating whether this task is based
+            on a daemon thread.
+            
+            See for `threading.Thread.daemon <https://docs.python.org/3/library/threading.html#threading.Thread.daemon>`_ more detail.
     """
 
     def __init__(self, job, name=None, args=(), kwargs=None,
                  ignore_skipped=True, daemon=True):
-        """Constructor
-
-        Args:
-            job (callable): Job to be scheduled as a task.
-            name (str): Task name.
-                By default, a unique name is constructed.
-            args (tuple): Argument tuple for the job invocation.
-                Defaults to ().
-            kwargs (dict): Dictionary of keyword arguments for the job
-                invocation.
-                Defaults to {}.
-            ignore_skipped (bool): Set True to ignore skipped job if time
-                spent on job is longer than the task cycle time.
-                Defaults to True.
-            daemon (bool): Set True to use as a daemon task.
-                Defaults to True.
-        """
         self.CHECK_INTERVAL = 1
 
         # Flag (start task): Set to True is start() is called.
@@ -438,7 +434,7 @@ class Task(threading.Thread):
         return self
 
     def delay(self, interval=None):
-        """Task delay time.
+        """Delay task start time.
 
         Args:
             interval (Union[str, timedelta, int]): Time interval.
@@ -487,7 +483,7 @@ class Task(threading.Thread):
             at_time (Union[str, datetime]): Start time.
                 A string or :obj:`datetime`.
                 A string can be in one of the following formats:
-                    `HH:MM:SS`, `mm-dd HH:MM:SS`
+                [`HH:MM:SS`, `mm-dd HH:MM:SS`].
                 Or set None to cancel task start time.
                 Defaults to None.
 
@@ -610,18 +606,18 @@ class Task(threading.Thread):
             unit (str): Time unit of the periodic task.
                 Defaults to `day`.
                 The following unit is available:
-                    1. `day`: Run job everyday.
-                    2. `week`: Run job every week.
-                    3. `month`: Run job every month.
+                1. `day`: Run job everyday.
+                2. `week`: Run job every week.
+                3. `month`: Run job every month.
             at_time (str): Time to do the job.
                 A string with format `HH:MM:SS`.
                 Defaults to `00:00:00`.
             week_day (str): Week to do the job.
                 Defaults to `Monday`.
                 This argument will only be used is unit is `week`.
-                A string should br one of following value:
-                    ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-                    "Saturday", "Sunday"]
+                A string should be one of following value:
+                [`"Monday"`, `"Tuesday"`, `"Wednesday"`, `"Thursday"`,
+                `"Friday"`, `"Saturday"`, `"Sunday"`]
             day (int): Day to do the job.
                 Defaults to 1.
                 This argument will only be used is unit is `month`.
@@ -721,9 +717,9 @@ class Task(threading.Thread):
                 Defaults to `00:00:00`.
             week_day (str): Week to do the job.
                 Defaults to `Monday`.
-                A string should br one of following value:
-                    ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-                    "Saturday", "Sunday"]
+                A string should be one of following value:
+                [`"Monday"`, `"Tuesday"`, `"Wednesday"`, `"Thursday"`,
+                `"Friday"`, `"Saturday"`, `"Sunday"`]
 
         Returns:
             Task: Invoked task instance.
@@ -1021,7 +1017,7 @@ class Task(threading.Thread):
     def pause(self):
         """Pause the Task's activity.
 
-        Works only the task is registered into ScheduleManager.
+        Works only the task is registered into :class:`ScheduleManager`.
         """
         if not self._start:
             raise OperationFailError("Task is not running.")
@@ -1132,9 +1128,6 @@ class TaskGroup:
     """Task group.
 
     A set of tasks.
-
-    Attributes:
-        tasks (iterable): Job to be scheduled as a task.
     """
 
     def __init__(self, tasks=None):
@@ -1175,7 +1168,7 @@ class TaskGroup:
 
     @property
     def count(self):
-        """int: Number of tasks registered in the group."""
+        """int: Number of tasks contained in the group."""
         return len(self._tasks)
 
     def set_manager(self, manager=None):
@@ -1282,12 +1275,12 @@ class TaskGroup:
         return self
 
     def delay(self, interval=None):
-        """Task delay time.
+        """Delay task start time.
 
         Args:
             interval (Union[str, timedelta, int]): Time interval.
-                A string with format `HH:MM:SS` or :obj:`timedelta` or int
-                in seconds.
+                A string with format `HH:MM:SS` or :obj:`timedelta` or int in
+                seconds.
                 Or set None to cancel task delay time.
                 Defaults to None.
 
@@ -1311,7 +1304,7 @@ class TaskGroup:
             at_time (Union[str, datetime]): Start time.
                 A string or :obj:`datetime`.
                 A string can be in one of the following formats:
-                    `HH:MM:SS`, `mm-dd HH:MM:SS`
+                [`HH:MM:SS`, `mm-dd HH:MM:SS`].
                 Or set None to cancel task start time.
                 Defaults to None.
 
@@ -1381,18 +1374,18 @@ class TaskGroup:
             unit (str): Time unit of the periodic task.
                 Defaults to `day`.
                 The following unit is available:
-                    1. `day`: Run job everyday.
-                    2. `week`: Run job every week.
-                    3. `month`: Run job every month.
+                1. `day`: Run job everyday.
+                2. `week`: Run job every week.
+                3. `month`: Run job every month.
             at_time (str): Time to do the job.
                 A string with format `HH:MM:SS`.
                 Defaults to `00:00:00`.
             week_day (str): Week to do the job.
                 Defaults to `Monday`.
                 This argument will only be used is unit is `week`.
-                A string should br one of following value:
-                    ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-                    "Saturday", "Sunday"]
+                A string should be one of following value:
+                [`"Monday"`, `"Tuesday"`, `"Wednesday"`, `"Thursday"`,
+                `"Friday"`, `"Saturday"`, `"Sunday"`]
             day (int): Day to do the job.
                 Defaults to 1.
                 This argument will only be used is unit is `month`.
@@ -1448,9 +1441,9 @@ class TaskGroup:
                 Defaults to `00:00:00`.
             week_day (str): Week to do the job.
                 Defaults to `Monday`.
-                A string should br one of following value:
-                    ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-                    "Saturday", "Sunday"]
+                A string should be one of following value:
+                [`"Monday"`, `"Tuesday"`, `"Wednesday"`, `"Thursday"`,
+                `"Friday"`, `"Saturday"`, `"Sunday"`]
 
         Returns:
             TaskGroup: Invoked TaskGroup instance.
@@ -1502,7 +1495,7 @@ class TaskGroup:
     def pause(self):
         """Pause the Tasks' activity.
 
-        Works only the task is registered into ScheduleManager.
+        Works only the task is registered into :class:`ScheduleManager`.
         """
         new_task_list = list()
 
