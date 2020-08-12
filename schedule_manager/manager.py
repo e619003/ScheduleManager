@@ -30,6 +30,10 @@ class ScheduleManager:
         """Returns True if task name is registered."""
         return name in self._tasks
 
+    def __iter__(self):
+        """Iterate over tasks name."""
+        return iter(self._tasks)
+
     def __repr__(self):
         return ("ScheduleManager<("
                 "Tasks: {c}, Running: {r}, Pending: {p}"

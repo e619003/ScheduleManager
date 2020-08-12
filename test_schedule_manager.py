@@ -3703,3 +3703,38 @@ class TestTaskGroup:
         task_list1 += task_list2
         assert task1 in task_list1
         assert task2 in task_list1
+
+
+class TestOther:
+    """Test something else."""
+
+    def test_object_to_string(self):
+        manager = ScheduleManager()
+        manager_str = str(manager)
+
+        assert "Tasks" in manager_str
+        assert "Running" in manager_str
+        assert "Pending" in manager_str
+
+        task = Task(name="test_task", job=lambda *args, **kwargs: None)
+        task_str = str(task)
+
+        assert task_str.startswith("Task<")
+        assert "test_task" in task_str
+
+        manager.register(task)
+        group_str = str(manager.all_tasks)
+
+        assert "Tasks" in group_str
+
+    def test_ScheduleManager__iter__(self):
+        manager = ScheduleManager()
+        task = Task(name="test_task", job=lambda *args, **kwargs: None)
+        manager.register(task)
+
+        container = list()
+
+        for task_name in manager:
+            container.append(task_name)
+
+        assert "test_task" in container
