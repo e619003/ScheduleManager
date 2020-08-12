@@ -136,7 +136,8 @@ class ScheduleManager:
 
         return task
 
-    def register_task(self, job, name=None, args=(), kwargs=None):
+    def register_task(self, job, name=None, args=(), kwargs=None,
+                      ignore_skipped=True, daemon=True):
         """Create and register a task.
 
         Args:
@@ -148,6 +149,11 @@ class ScheduleManager:
             kwargs (dict): Dictionary of keyword arguments for the job
                 invocation.
                 Defaults to {}.
+            ignore_skipped (bool): Set True to ignore skipped job if time
+                spent on job is longer than the task cycle time.
+                Defaults to True.
+            daemon (bool): Set True to use as a daemon task.
+                Defaults to True.
 
         Returns:
             Task: Registered task instance.
@@ -211,7 +217,7 @@ class Task(threading.Thread):
     """
 
     def __init__(self, job, name=None, args=(), kwargs=None,
-                 ignore_skipped=True):
+                 ignore_skipped=True, daemon=True):
         """Constructor
 
         Args:
@@ -225,6 +231,8 @@ class Task(threading.Thread):
                 Defaults to {}.
             ignore_skipped (bool): Set True to ignore skipped job if time
                 spent on job is longer than the task cycle time.
+                Defaults to True.
+            daemon (bool): Set True to use as a daemon task.
                 Defaults to True.
         """
         self.CHECK_INTERVAL = 1
@@ -261,7 +269,11 @@ class Task(threading.Thread):
         if name is None:
             name = "Task-{}".format(uuid.uuid4().hex)
 
-        super().__init__(target=job, name=name, args=args, kwargs=kwargs)
+        super().__init__(target=job,
+                         name=name,
+                         args=args,
+                         kwargs=kwargs,
+                         daemon=daemon)
 
     def __repr__(self):
         status = "initial"

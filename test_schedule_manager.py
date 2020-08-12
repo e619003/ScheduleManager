@@ -579,7 +579,6 @@ class TestTask:
 
     def test_start_task(self, mocker):
         task = Task(job=lambda *args, **kwargs: None)
-        task.daemon = True
         task.period(60)
         mock_run = mocker.patch.object(task, 'run')
         mock_run.return_value = False
@@ -591,7 +590,6 @@ class TestTask:
 
     def test_stop_task(self):
         task = Task(job=lambda *args, **kwargs: None)
-        task.daemon = True
         task.period(60)
         task.start()
 
@@ -602,7 +600,6 @@ class TestTask:
 
     def test_avoid_to_use_run_method_directly(self):
         task = Task(job=lambda *args, **kwargs: None)
-        task.daemon = True
         task.period(60)
 
         with pytest.raises(OperationFailError):
@@ -615,7 +612,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period(2)
         task.start()
         time.sleep(0.5)
@@ -640,7 +636,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period(40)
         task.start()
         time.sleep(0.5)
@@ -712,7 +707,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period(60)
         task.start()
         time.sleep(0.5)
@@ -775,7 +769,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func, ignore_skipped=False)
-        task.daemon = True
         task.period(90)
         task.start()
         time.sleep(0.5)
@@ -853,7 +846,6 @@ class TestTask:
 
         with FakeDatetime(this_year, 3, 5, 12, 0, 0):
             task = Task(job=test_func)
-            task.daemon = True
             task.period_day_at("18:00:00")
             task.start()
             time.sleep(0.5)
@@ -868,7 +860,6 @@ class TestTask:
             task.stop()
 
             task = Task(job=test_func)
-            task.daemon = True
             task.period_day_at("6:00:00")
             task.start()
             time.sleep(0.5)
@@ -883,7 +874,6 @@ class TestTask:
             task.stop()
 
             task = Task(job=test_func)
-            task.daemon = True
             task.period_day_at("12:00:00")
             task.start()
             time.sleep(0.5)
@@ -907,7 +897,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_day_at("12:00:00")
         task.start()
         time.sleep(0.5)
@@ -979,7 +968,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_day_at("12:00:00")
         task.start()
         time.sleep(0.5)
@@ -1042,7 +1030,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_day_at("12:00:00")
         task.start()
         time.sleep(0.5)
@@ -1105,7 +1092,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func, ignore_skipped=False)
-        task.daemon = True
         task.period_day_at("12:00:00")
         task.start()
         time.sleep(0.5)
@@ -1174,7 +1160,6 @@ class TestTask:
 
         with FakeDatetime(this_year, 7, 8, 12, 0, 0):
             task = Task(job=test_func)
-            task.daemon = True
             task.period_week_at(at_time="18:00:00", week_day="Friday")
             task.start()
             time.sleep(0.5)
@@ -1189,7 +1174,6 @@ class TestTask:
             task.stop()
 
             task = Task(job=test_func)
-            task.daemon = True
             task.period_week_at(at_time="06:00:00", week_day="Tuesday")
             task.start()
             time.sleep(0.5)
@@ -1204,7 +1188,6 @@ class TestTask:
             task.stop()
 
             task = Task(job=test_func)
-            task.daemon = True
             task.period_week_at(at_time="10:00:00", week_day="Wednesday")
             task.start()
             time.sleep(0.5)
@@ -1219,7 +1202,6 @@ class TestTask:
             task.stop()
 
             task = Task(job=test_func)
-            task.daemon = True
             task.period_week_at(at_time="12:00:00", week_day="Wednesday")
             task.start()
             time.sleep(0.5)
@@ -1243,7 +1225,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_week_at(at_time="12:00:00", week_day="Wednesday")
         task.start()
         time.sleep(0.5)
@@ -1324,7 +1305,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_week_at(at_time="12:00:00", week_day="Wednesday")
         task.start()
         time.sleep(0.5)
@@ -1378,7 +1358,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_week_at(at_time="12:00:00", week_day="Wednesday")
         task.start()
         time.sleep(0.5)
@@ -1432,7 +1411,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_week_at(at_time="12:00:00", week_day="Wednesday")
         task.start()
         time.sleep(0.5)
@@ -1495,7 +1473,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_week_at(at_time="12:00:00", week_day="Wednesday")
         task.start()
         time.sleep(0.5)
@@ -1558,7 +1535,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_week_at(at_time="12:00:00", week_day="Wednesday")
         task.start()
         time.sleep(0.5)
@@ -1621,7 +1597,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func, ignore_skipped=False)
-        task.daemon = True
         task.period_week_at(at_time="12:00:00", week_day="Wednesday")
         task.start()
         time.sleep(0.5)
@@ -1690,7 +1665,6 @@ class TestTask:
 
         with FakeDatetime(this_year, 7, 8, 12, 0, 0):
             task = Task(job=test_func)
-            task.daemon = True
             task.period_month_at(at_time="18:00:00", day=12)
             task.start()
             time.sleep(0.5)
@@ -1705,7 +1679,6 @@ class TestTask:
             task.stop()
 
             task = Task(job=test_func)
-            task.daemon = True
             task.period_month_at(at_time="06:00:00", day=2)
             task.start()
             time.sleep(0.5)
@@ -1720,7 +1693,6 @@ class TestTask:
             task.stop()
 
             task = Task(job=test_func)
-            task.daemon = True
             task.period_month_at(at_time="12:00:00", day=8)
             task.start()
             time.sleep(0.5)
@@ -1741,7 +1713,6 @@ class TestTask:
 
         with FakeDatetime(this_year, 2, 2, 12, 0, 0):
             task = Task(job=test_func)
-            task.daemon = True
             task.period_month_at(at_time="18:00:00", day=30)
             task.start()
             time.sleep(0.5)
@@ -1758,7 +1729,6 @@ class TestTask:
 
         with FakeDatetime(this_year, 12, 31, 12, 0, 0):
             task = Task(job=test_func)
-            task.daemon = True
             task.period_month_at(at_time="11:00:00", day=31)
             task.start()
             time.sleep(0.5)
@@ -1775,7 +1745,6 @@ class TestTask:
 
         with FakeDatetime(this_year, 12, 31, 12, 0, 0):
             task = Task(job=test_func)
-            task.daemon = True
             task.period_month_at(at_time="11:00:00", day=10)
             task.start()
             time.sleep(0.5)
@@ -1792,7 +1761,6 @@ class TestTask:
 
         with FakeDatetime(this_year, 3, 31, 12, 0, 0):
             task = Task(job=test_func)
-            task.daemon = True
             task.period_month_at(at_time="11:00:00", day=31)
             task.start()
             time.sleep(0.5)
@@ -1809,7 +1777,6 @@ class TestTask:
 
         with FakeDatetime(this_year, 12, 31, 12, 0, 0):
             task = Task(job=test_func)
-            task.daemon = True
             task.period_month_at(at_time="12:00:00", day=31)
             task.start()
             time.sleep(0.5)
@@ -1826,7 +1793,6 @@ class TestTask:
 
         with FakeDatetime(this_year, 3, 31, 12, 0, 0):
             task = Task(job=test_func)
-            task.daemon = True
             task.period_month_at(at_time="12:00:00", day=31)
             task.start()
             time.sleep(0.5)
@@ -1843,7 +1809,6 @@ class TestTask:
 
         with FakeDatetime(this_year, 1, 31, 12, 0, 0):
             task = Task(job=test_func)
-            task.daemon = True
             task.period_month_at(at_time="12:00:00", day=30)
             task.start()
             time.sleep(0.5)
@@ -1868,7 +1833,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=15)
         task.start()
         time.sleep(0.5)
@@ -1949,7 +1913,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=31)
         task.start()
         time.sleep(0.5)
@@ -2021,7 +1984,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=31)
         task.start()
         time.sleep(0.5)
@@ -2066,7 +2028,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=15)
         task.start()
         time.sleep(0.5)
@@ -2111,7 +2072,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=15)
         task.start()
         time.sleep(0.5)
@@ -2156,7 +2116,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=15)
         task.start()
         time.sleep(0.5)
@@ -2201,7 +2160,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=30)
         task.start()
         time.sleep(0.5)
@@ -2246,7 +2204,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=15)
         task.start()
         time.sleep(0.5)
@@ -2291,7 +2248,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=31)
         task.start()
         time.sleep(0.5)
@@ -2336,7 +2292,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=31)
         task.start()
         time.sleep(0.5)
@@ -2381,7 +2336,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=15)
         task.start()
         time.sleep(0.5)
@@ -2426,7 +2380,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=31)
         task.start()
         time.sleep(0.5)
@@ -2471,7 +2424,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=31)
         task.start()
         time.sleep(0.5)
@@ -2516,7 +2468,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func, ignore_skipped=False)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=5)
         task.start()
         time.sleep(0.5)
@@ -2589,7 +2540,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func, ignore_skipped=False)
-        task.daemon = True
         task.period_month_at(at_time="12:00:00", day=31)
         task.start()
         time.sleep(0.5)
@@ -2661,7 +2611,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period(60)
         task.delay(30)
         task.start()
@@ -2697,7 +2646,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period(60)
         task.start_at("23:05:00")
         task.start()
@@ -2734,7 +2682,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period(2)
         task.nonperiodic(3)
         task.start()
@@ -2761,7 +2708,6 @@ class TestTask:
             Monitor.monitor += 1
 
         task = Task(job=test_func)
-        task.daemon = True
         task.period(2)
         task.nonperiodic(3)
         task.periodic()
@@ -2813,7 +2759,6 @@ class TestTask:
                              indirect=True)
     def test_property_next_run(self, time_tester):
         task = Task(job=lambda *args, **kwargs: None)
-        task.daemon = True
         task.period(40)
         task.start()
         time.sleep(0.5)
@@ -2854,7 +2799,6 @@ class TestTask:
         task.stop()
 
         task = Task(job=lambda *args, **kwargs: None)
-        task.daemon = True
         task.period(40)
         task.start_at("02:30:00")
         task.start()
@@ -3197,13 +3141,11 @@ class TestScheduleManager:
 
     def test_property_running_tasks(self):
         task1 = Task(name="test_task1", job=lambda *args, **kwargs: None)
-        task1.daemon = True
         task1.period(5)
         task1.start()
         task2 = Task(name="test_task2", job=lambda *args, **kwargs: None)
         task3 = Task(name="test_task3", job=lambda *args, **kwargs: None)
         task4 = Task(name="test_task4", job=lambda *args, **kwargs: None)
-        task4.daemon = True
         task4.period(5)
         task4.start()
         manager = ScheduleManager()
@@ -3224,13 +3166,11 @@ class TestScheduleManager:
 
     def test_property_pending_tasks(self):
         task1 = Task(name="test_task1", job=lambda *args, **kwargs: None)
-        task1.daemon = True
         task1.period(5)
         task1.start()
         task2 = Task(name="test_task2", job=lambda *args, **kwargs: None)
         task3 = Task(name="test_task3", job=lambda *args, **kwargs: None)
         task4 = Task(name="test_task4", job=lambda *args, **kwargs: None)
-        task4.daemon = True
         task4.period(5)
         task4.start()
         manager = ScheduleManager()
@@ -3253,7 +3193,6 @@ class TestScheduleManager:
         manager = ScheduleManager()
         task1 = Task(name="test", job=lambda *args, **kwargs: None)
         manager.register(task1)
-        task1.daemon = True
         task1.period(5)
         task1.start()
         time.sleep(1)
@@ -3268,7 +3207,6 @@ class TestScheduleManager:
         manager = ScheduleManager()
         task1 = Task(name="test", job=lambda *args, **kwargs: None)
         manager.register(task1)
-        task1.daemon = True
         task1.period(5)
         task1.start()
         time.sleep(1)
@@ -3295,17 +3233,14 @@ class TestScheduleManager:
         manager = ScheduleManager()
         task2 = Task(name="test2", job=lambda *args, **kwargs: None)
         manager.register(task2)
-        task2.daemon = True
         task2.period_day_at("16:00:00")
         task2.set_tags(["a", 1])
         task3 = Task(name="test3", job=lambda *args, **kwargs: None)
         manager.register(task3)
-        task3.daemon = True
         task3.period_week_at(at_time="17:00:00", week_day="Sunday")
         task3.set_tags(["b", 2])
         task4 = Task(name="test4", job=lambda *args, **kwargs: None)
         manager.register(task4)
-        task4.daemon = True
         task4.period_month_at(at_time="18:00:00", day=7)
         task4.set_tags(["c", 3])
 
@@ -3375,7 +3310,6 @@ class TestScheduleManager:
         manager = ScheduleManager()
         task = Task(name="test", job=lambda *args, **kwargs: None)
         manager.register(task)
-        task.daemon = True
         task.period(2)
         task.nonperiodic(10)
         task.start()
@@ -3399,7 +3333,6 @@ class TestScheduleManager:
         manager = ScheduleManager()
         task = Task(name="test", job=lambda *args, **kwargs: None)
         manager.register(task)
-        task.daemon = True
         task.period(5)
         task.start_at(time_start)
         task.start()
@@ -3425,7 +3358,6 @@ class TestScheduleManager:
         manager = ScheduleManager()
         task = Task(name="test", job=lambda *args, **kwargs: None)
         manager.register(task)
-        task.daemon = True
         task.period(5)
         task.delay(60)
         task.start()
@@ -3653,9 +3585,7 @@ class TestTaskGroup:
     def test_start(self, mocker):
         manager = ScheduleManager()
         task1 = Task(name="test_task1", job=lambda *args, **kwargs: None)
-        task1.daemon = True
         task2 = Task(name="test_task2", job=lambda *args, **kwargs: None)
-        task2.daemon = True
         manager.register(task2)
         manager.register(task1)
         task1.period(10)
@@ -3670,9 +3600,7 @@ class TestTaskGroup:
     def test_stop(self, mocker):
         manager = ScheduleManager()
         task1 = Task(name="test_task1", job=lambda *args, **kwargs: None)
-        task1.daemon = True
         task2 = Task(name="test_task2", job=lambda *args, **kwargs: None)
-        task2.daemon = True
         manager.register(task2)
         manager.register(task1)
         task1.period(10)
@@ -3689,9 +3617,7 @@ class TestTaskGroup:
     def test_pause(self, mocker):
         manager = ScheduleManager()
         task1 = Task(name="test_task1", job=lambda *args, **kwargs: None)
-        task1.daemon = True
         task2 = Task(name="test_task2", job=lambda *args, **kwargs: None)
-        task2.daemon = True
         manager.register(task2)
         manager.register(task1)
         task1.period(10)
@@ -3716,9 +3642,7 @@ class TestTaskGroup:
         manager = ScheduleManager()
         manager2 = ScheduleManager()
         task1 = Task(name="test_task1", job=lambda *args, **kwargs: None)
-        task1.daemon = True
         task2 = Task(name="test_task2", job=lambda *args, **kwargs: None)
-        task2.daemon = True
         manager.register(task2)
         manager.register(task1)
         task1.period(10)
@@ -3733,9 +3657,7 @@ class TestTaskGroup:
         manager = ScheduleManager()
         manager2 = ScheduleManager()
         task1 = Task(name="test_task1", job=lambda *args, **kwargs: None)
-        task1.daemon = True
         task2 = Task(name="test_task2", job=lambda *args, **kwargs: None)
-        task2.daemon = True
         task3 = Task(name="test_task1", job=lambda *args, **kwargs: None)
         manager.register(task1)
         manager.register(task2)
@@ -3750,9 +3672,7 @@ class TestTaskGroup:
     def test_set_manager_create_new(self, mocker):
         manager = ScheduleManager()
         task1 = Task(name="test_task1", job=lambda *args, **kwargs: None)
-        task1.daemon = True
         task2 = Task(name="test_task2", job=lambda *args, **kwargs: None)
-        task2.daemon = True
         manager.register(task2)
         manager.register(task1)
         task1.period(10)
@@ -3766,9 +3686,7 @@ class TestTaskGroup:
     def test___add__(self, mocker):
         manager = ScheduleManager()
         task1 = Task(name="test_task1", job=lambda *args, **kwargs: None)
-        task1.daemon = True
         task2 = Task(name="test_task2", job=lambda *args, **kwargs: None)
-        task2.daemon = True
         manager.register(task1)
         task1.period(10)
         task2.period(10)
