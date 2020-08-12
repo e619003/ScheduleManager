@@ -28,5 +28,6 @@ setup(
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
+        'Intended Audience :: Developers',
     ],
 )
